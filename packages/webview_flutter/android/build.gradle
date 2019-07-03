@@ -49,6 +49,3 @@ android {
         implementation 'androidx.webkit:webkit:1.0.0'
     }
 }
-dependencies {
-    compileOnly files('/Users/mithun.mondal/Documents/flutter_development/flutter/bin/cache/artifacts/engine/android-x86/flutter.jar')
-}
