@@ -38,13 +38,15 @@ typedef void JavascriptMessageHandler(JavascriptMessage message);
 
 /// Information about a navigation action that is about to be executed.
 class NavigationRequest {
-  NavigationRequest._({this.url, this.isForMainFrame});
+  NavigationRequest._({this.url, this.isForMainFrame, this.isLinkClicked});
 
   /// The URL that will be loaded if the navigation is executed.
   final String url;
 
   /// Whether the navigation request is to be loaded as the main frame.
   final bool isForMainFrame;
+
+  final bool isLinkClicked;
 
   @override
   String toString() {
@@ -382,9 +384,9 @@ class _PlatformCallbacksHandler implements WebViewPlatformCallbacksHandler {
   }
 
   @override
-  bool onNavigationRequest({String url, bool isForMainFrame}) {
+  bool onNavigationRequest({String url, bool isForMainFrame, bool isLinkClicked}) {
     final NavigationRequest request =
-        NavigationRequest._(url: url, isForMainFrame: isForMainFrame);
+        NavigationRequest._(url: url, isForMainFrame: isForMainFrame, isLinkClicked:isLinkClicked);
     final bool allowNavigation = _widget.navigationDelegate == null ||
         _widget.navigationDelegate(request) == NavigationDecision.navigate;
     return allowNavigation;
