@@ -23,9 +23,11 @@
     decisionHandler(WKNavigationActionPolicyAllow);
     return;
   }
+  bool isLinkClicked =(navigationAction.navigationType == WKNavigationTypeLinkActivated);
   NSDictionary* arguments = @{
     @"url" : navigationAction.request.URL.absoluteString,
     @"isForMainFrame" : @(navigationAction.targetFrame.isMainFrame)
+    @"isLinkClicked" : @(isLinkClicked)
   };
   [_methodChannel invokeMethod:@"navigationRequest"
                      arguments:arguments
