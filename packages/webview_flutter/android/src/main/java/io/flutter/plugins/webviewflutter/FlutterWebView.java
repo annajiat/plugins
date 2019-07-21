@@ -34,25 +34,24 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
   private final FlutterWebViewClient flutterWebViewClient;
   private final Handler platformThreadHandler;
 
-    @SuppressWarnings("unchecked")
-    FlutterWebView(Context context, BinaryMessenger messenger, int id, Map<String, Object> params, final View containerView) {
-        Context activityContext = context;
-        Context appContext = context.getApplicationContext();
-        if (appContext instanceof FlutterApplication) {
-            Activity currentActivity = ((FlutterApplication) appContext).getCurrentActivity();
-            if (currentActivity != null) {
-                activityContext = currentActivity;
-            }
-        }
-        webView = new InputAwareWebView(activityContext, containerView);
-
-        platformThreadHandler = new Handler(context.getMainLooper());
-        // Allow local storage.
-        webView.getSettings().setDomStorageEnabled(true);
-        webView.setBackgroundColor(Color.WHITE);
-        webView.setVerticalScrollBarEnabled(false);
-        webView.setHorizontalScrollBarEnabled(false);
-
+  @SuppressWarnings("unchecked")
+  FlutterWebView(Context context, BinaryMessenger messenger, int id, Map<String, Object> params, final View containerView) {
+    Context activityContext = context;
+    Context appContext = context.getApplicationContext();
+    if (appContext instanceof FlutterApplication) {
+      Activity currentActivity = ((FlutterApplication) appContext).getCurrentActivity();
+      if (currentActivity != null) {
+        activityContext = currentActivity;
+      }
+    }
+    webView = new InputAwareWebView(activityContext, containerView);
+    platformThreadHandler = new Handler(context.getMainLooper());
+    // Allow local storage.
+    webView.getSettings().setDomStorageEnabled(true);
+    webView.getSettings().setDomStorageEnabled(true);
+    webView.setBackgroundColor(Color.WHITE);
+    webView.setVerticalScrollBarEnabled(false);
+    webView.setHorizontalScrollBarEnabled(false);
     methodChannel = new MethodChannel(messenger, "plugins.flutter.io/webview_" + id);
     methodChannel.setMethodCallHandler(this);
 
